@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Atividade 1 - Congruência Modular e Teorema Chinês do Resto</title>
+<style>
+@page { size: A4; margin: 17mm 17mm 16mm; }
+* { box-sizing: border-box; }
+body { font-family: Arial, Helvetica, sans-serif; color: #20242b; font-size: 9.1pt; line-height: 1.32; }
+h1 { font-size: 20pt; margin: 0 0 5px; color: #172c4d; }
+h2 { font-size: 12pt; margin: 15px 0 7px; color: #172c4d; border-bottom: 1px solid #ccd4df; padding-bottom: 4px; }
+h3 { font-size: 9.8pt; margin: 10px 0 5px; color: #b3312e; }
+p { margin: 5px 0 8px; text-align: justify; }
+ul, ol { margin: 4px 0 8px; padding-left: 22px; }
+li { margin: 3px 0; }
+.kicker { color: #66758a; text-transform: uppercase; font-size: 8.5pt; letter-spacing: 1px; font-weight: bold; margin-bottom: 6px; }
+.subtitle { font-size: 11pt; color: #4f5b6c; margin-bottom: 13px; }
+.ident { border: 1px solid #cbd4df; border-radius: 7px; padding: 10px 12px; background: #f5f7fa; margin: 10px 0 13px; }
+.ident table { width: 100%; border-collapse: collapse; }
+.ident td { padding: 3px 5px; vertical-align: top; }
+.label { color: #536176; font-weight: bold; width: 17%; }
+.callout { border-left: 4px solid #315d91; background: #f1f5fa; padding: 8px 11px; margin: 9px 0; }
+.formula { background: #f5f6f8; border: 1px solid #e0e4e9; padding: 8px 10px; border-radius: 5px; font-family: "DejaVu Sans", Arial, sans-serif; margin: 7px 0; text-align: left; }
+table.data { width: 100%; border-collapse: collapse; margin: 8px 0 10px; font-size: 9.2pt; }
+table.data th { background: #e9eef5; color: #243c5a; text-align: left; }
+table.data th, table.data td { border: 1px solid #cbd4df; padding: 6px 7px; vertical-align: top; }
+.small { font-size: 8.7pt; color: #596575; }
+.page { page-break-after: always; break-after: page; }
+@media print { .page { page-break-after: always; break-after: page; } .page:last-child { page-break-after: auto; break-after: auto; } }
+.page:last-child { page-break-after: auto; break-after: auto; }
+.footerline { border-top: 1px solid #ccd4df; margin-top: 15px; padding-top: 6px; color: #788393; font-size: 8pt; }
+strong { color: #202e40; }
+</style>
+</head>
+<body>
+<section class="page">
+  <div class="kicker">Portfólio de Programação Matemática — Parte 2</div>
+  <h1>Atividade 1</h1>
+  <div class="subtitle">Congruência modular e Teorema Chinês do Resto</div>
+  <div class="ident">
+    <table>
+      <tr><td class="label">Aluno:</td><td>Carlos Eduardo Rodrigues Lins</td><td class="label">Matrícula:</td><td>2612082019</td></tr>
+      <tr><td class="label">Curso:</td><td>Engenharia da Computação</td><td class="label">Turno:</td><td>Matutino</td></tr>
+      <tr><td class="label">Disciplina:</td><td colspan="3">Estruturas Matemáticas para Computação — Matemática Discreta</td></tr>
+      <tr><td class="label">Linguagem:</td><td>Python</td><td class="label">
+    </table>
+  </div>
+
+  <h2>1. Objetivo e descrição do problema</h2>
+  <p>O objetivo desta atividade é implementar, em Python, procedimentos matemáticos para verificar congruências modulares e resolver sistemas de congruências pelo Teorema Chinês do Resto. O programa recebe os valores digitados pelo usuário, mostra os cálculos intermediários, verifica as condições necessárias e apresenta a solução.</p>
+  <p>A atividade foi dividida em duas partes: (A) verificar se dois inteiros são congruentes módulo um inteiro positivo; e (B) resolver um sistema formado por três ou quatro congruências com módulos positivos e coprimos dois a dois.</p>
+
+  <h2>2. Parte A — Verificação de congruência modular</h2>
+  <p>Dois inteiros <strong>a</strong> e <strong>b</strong> são congruentes módulo <strong>n</strong> quando a diferença entre eles é divisível por <strong>n</strong>. Portanto, o programa calcula a diferença e o resto da divisão por n.</p>
+  <div class="formula"><strong>Critério:</strong> a ≡ b (mod n) ⇔ (a − b) % n = 0, com n &gt; 0.</div>
+  <h3>Exemplo 1 — Congruência verdadeira</h3>
+  <p>Para a = 23, b = 8 e n = 5:</p>
+  <div class="formula">a − b = 23 − 8 = 15<br>15 = 3 × 5 + 0<br>15 % 5 = 0<br>23 % 5 = 3 e 8 % 5 = 3</div>
+  <p>Como o resto da diferença é zero, <strong>23 ≡ 8 (mod 5)</strong>.</p>
+  <h3>Exemplo 2 — Congruência falsa</h3>
+  <p>Para a = 17, b = 6 e n = 4:</p>
+  <div class="formula">a − b = 17 − 6 = 11<br>11 = 2 × 4 + 3<br>11 % 4 = 3</div>
+  <p>Como o resto não é zero, <strong>17 e 6 não são congruentes módulo 4</strong>.</p>
+
+  <h2>3. Procedimento implementado na Parte A</h2>
+  <ol>
+    <li>Solicitar os inteiros a e b.</li>
+    <li>Solicitar o módulo n e repetir a entrada enquanto n não for positivo.</li>
+    <li>Calcular a diferença a − b e o resto da divisão dessa diferença por n.</li>
+    <li>Exibir a divisão no formato diferença = quociente × n + resto.</li>
+    <li>Concluir se os números são congruentes ou não.</li>
+  </ol>
+  <div class="footerline">Documento explicativo — Atividade 1 | Estruturas Matemáticas para Computação</div>
+</section>
+
+<section class="page">
+  <div class="kicker">Atividade 1 — Parte B</div>
+  <h1>Teorema Chinês do Resto</h1>
+  <p>O programa permite escolher um sistema com três ou quatro congruências. Antes de resolver, verifica se todos os módulos são positivos e se o MDC de cada par de módulos é igual a 1. Essa é a condição de coprimalidade exigida nesta atividade.</p>
+  <h2>4. Procedimento matemático</h2>
+  <p>Considere um sistema de congruências:</p>
+  <div class="formula">x ≡ a₁ (mod n₁), x ≡ a₂ (mod n₂), ..., x ≡ aₖ (mod nₖ).</div>
+  <ol>
+    <li>Calcular o produto total <strong>N = n₁ × n₂ × ... × nₖ</strong>.</li>
+    <li>Para cada congruência, calcular <strong>Nᵢ = N / nᵢ</strong>.</li>
+    <li>Encontrar o inverso multiplicativo de Nᵢ módulo nᵢ, por meio do algoritmo de Euclides estendido.</li>
+    <li>Calcular a soma <strong>S = a₁N₁u₁ + a₂N₂u₂ + ... + aₖNₖuₖ</strong>, em que uᵢ é o inverso encontrado.</li>
+    <li>Reduzir a soma módulo N: <strong>x₀ = S % N</strong>.</li>
+    <li>Substituir x₀ em todas as congruências para conferir a solução.</li>
+  </ol>
+  <div class="formula"><strong>Solução geral:</strong> x = x₀ + tN, em que t ∈ ℤ.</div>
+  <h2>5. Exemplo 1 — Sistema com três congruências</h2>
+  <div class="formula">x ≡ 2 (mod 3)<br>x ≡ 3 (mod 5)<br>x ≡ 2 (mod 7)</div>
+  <p>Os módulos 3, 5 e 7 são coprimos dois a dois. O produto total é N = 3 × 5 × 7 = 105.</p>
+  <table class="data">
+    <tr><th>i</th><th>nᵢ</th><th>aᵢ</th><th>Nᵢ = N/nᵢ</th><th>Inverso uᵢ</th><th>Termo aᵢNᵢuᵢ</th></tr>
+    <tr><td>1</td><td>3</td><td>2</td><td>35</td><td>2</td><td>140</td></tr>
+    <tr><td>2</td><td>5</td><td>3</td><td>21</td><td>1</td><td>63</td></tr>
+    <tr><td>3</td><td>7</td><td>2</td><td>15</td><td>1</td><td>30</td></tr>
+  </table>
+  <p>S = 140 + 63 + 30 = 233. Assim, x₀ = 233 % 105 = <strong>23</strong>.</p>
+  <p>Conferência: 23 % 3 = 2; 23 % 5 = 3; 23 % 7 = 2. Todas as congruências são satisfeitas.</p>
+  <div class="callout"><strong>Resultado:</strong> x = 23 + 105t, com t ∈ ℤ.</div>
+  <div class="footerline">Documento explicativo — Atividade 1 | Teorema Chinês do Resto</div>
+</section>
+
+<section class="page">
+  <div class="kicker">Atividade 1 — Implementação e testes</div>
+  <h1>6. Exemplo com quatro congruências</h1>
+  <div class="formula">x ≡ 1 (mod 2)<br>x ≡ 2 (mod 3)<br>x ≡ 3 (mod 5)<br>x ≡ 2 (mod 7)</div>
+  <p>Os módulos 2, 3, 5 e 7 são coprimos dois a dois. O produto é N = 2 × 3 × 5 × 7 = 210.</p>
+  <table class="data">
+    <tr><th>nᵢ</th><th>aᵢ</th><th>Nᵢ</th><th>Inverso uᵢ</th><th>Termo</th></tr>
+    <tr><td>2</td><td>1</td><td>105</td><td>1</td><td>105</td></tr>
+    <tr><td>3</td><td>2</td><td>70</td><td>1</td><td>140</td></tr>
+    <tr><td>5</td><td>3</td><td>42</td><td>3</td><td>378</td></tr>
+    <tr><td>7</td><td>2</td><td>30</td><td>4</td><td>240</td></tr>
+  </table>
+  <p>S = 105 + 140 + 378 + 240 = 863. Logo, x₀ = 863 % 210 = <strong>23</strong>.</p>
+  <p>Conferência: 23 % 2 = 1; 23 % 3 = 2; 23 % 5 = 3; 23 % 7 = 2.</p>
+  <div class="callout"><strong>Resultado:</strong> x = 23 + 210t, com t ∈ ℤ.</div>
+
+  <h2>7. Explicação da implementação</h2>
+  <ul>
+    <li><strong>Entrada e validação:</strong> a função de leitura aceita somente inteiros; o programa repete entradas inválidas e não aceita módulo zero ou negativo.</li>
+    <li><strong>MDC:</strong> foi implementado com divisões sucessivas pelo algoritmo de Euclides, sem usar <code>math.gcd()</code>.</li>
+    <li><strong>Inverso modular:</strong> é calculado pelo algoritmo de Euclides estendido, atualizando os coeficientes até encontrar o inverso.</li>
+    <li><strong>Teorema Chinês do Resto:</strong> os produtos, inversos e termos são calculados com laços; ao final, o resultado é reduzido módulo N e testado em cada equação.</li>
+  </ul>
+  <h2>8. Testes realizados</h2>
+  <table class="data">
+    <tr><th>Teste</th><th>Entradas</th><th>Resultado esperado</th></tr>
+    <tr><td>Congruência válida</td><td>a=23, b=8, n=5</td><td>Congruentes; resto 0</td></tr>
+    <tr><td>Congruência inválida</td><td>a=17, b=6, n=4</td><td>Não congruentes; resto 3</td></tr>
+    <tr><td>CRT com 3 equações</td><td>(2 mod 3), (3 mod 5), (2 mod 7)</td><td>x = 23 + 105t</td></tr>
+    <tr><td>CRT com 4 equações</td><td>(1 mod 2), (2 mod 3), (3 mod 5), (2 mod 7)</td><td>x = 23 + 210t</td></tr>
+    <tr><td>Módulos não coprimos</td><td>Por exemplo, 4 e 6</td><td>O programa informa que a condição não foi atendida e solicita novos dados</td></tr>
+  </table>
+  <h2>9. Resultado e conclusão</h2>
+  <p>O programa atende às duas partes da atividade: verifica congruências usando o resto da divisão e resolve sistemas de três ou quatro congruências quando os módulos são coprimos dois a dois. Os cálculos intermediários, os inversos e a conferência final são apresentados no terminal, permitindo acompanhar o raciocínio matemático.</p>
+  <p class="small">Arquivo Python correspondente: <strong>congruencia_crt.py</strong>. O código utiliza somente recursos nativos do Python.</p>
+  <div class="footerline">Documento explicativo — Atividade 1 | Carlos Eduardo Rodrigues Lins</div>
+</section>
+</body>
+</html>
