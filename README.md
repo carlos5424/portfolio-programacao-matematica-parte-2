@@ -39,13 +39,13 @@ O programa:
 
 No terminal do VS Code, a partir desta pasta, execute:
 
-```python congruencia_tcr.py
-```
+python congruencia_tcr.py
+
 
 Para executar a segunda atividade:
 
-```python rsa.py
-```
+python rsa.py
+
 
 ## Testes de exemplo
 
